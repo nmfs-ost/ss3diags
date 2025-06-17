@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   articles/aspm: aspm.html
@@ -8,7 +8,7 @@ articles:
   articles/likelihood: likelihood.html
   articles/residuals: residuals.html
   articles/Retrospective-Analysis: Retrospective-Analysis.html
-last_built: 2025-02-12T21:37Z
+last_built: 2025-06-17T22:04Z
 urls:
-  reference: https://pifscstockassessments.github.io/ss3diags/reference
-  article: https://pifscstockassessments.github.io/ss3diags/articles
+  reference: https://nmfs-ost.github.io/ss3diags/reference
+  article: https://nmfs-ost.github.io/ss3diags/articles
