@@ -184,12 +184,12 @@ SSplotRunstest <- function(ss3rep,
   }
 
   subplots <- subplots[1]
-  datatypes <- c("Index", "Mean length", "Mean age", "Conditional age-at-length")
-  ylabel <- datatypes[which(c("cpue", "len", "age", "con") %in% subplots)]
+  datatypes <- c("Index", "Mean length", "Mean age", "Conditional age-at-length", "Size frequency")
+  ylabel <- datatypes[which(c("cpue", "len", "age", "con", "size") %in% subplots)]
   if (length(ylabel) == 0) {
-    stop(subplots, "is not a valid type. Please choose from the options cpue, len, age, size, or con")
+    stop(subplots, " is not a valid type. Please choose from the options cpue, len, age, size, or con")
   }
-  if (verbose) message("Running Runs Test Diagnostics w/ plots for", datatypes[which(c("cpue", "len", "age", "con") %in% subplots)])
+  if (verbose) message("Running Runs Test Diagnostics w/ plots for", datatypes[which(c("cpue", "len", "age", "con", "size") %in% subplots)])
   if (subplots == "cpue") {
     cpue <- ss3rep[["cpue"]]
     cpue[["residuals"]] <- ifelse(is.na(cpue[["Obs"]]) | is.na(cpue[["Like"]]), NA, log(cpue[["Obs"]]) - log(cpue[["Exp"]]))
@@ -435,13 +435,13 @@ SSplotRunstest <- function(ss3rep,
 
 SSrunstest <- function(ss3rep,
                        mixing = "less",
-                       quants = c("cpue", "len", "age", "con")[1],
+                       quants = c("cpue", "len", "age", "con", "size")[1],
                        indexselect = NULL,
                        verbose = TRUE) {
-  datatypes <- c("Index", "Mean length", "Mean age", "Conditional age-at-length")
+  datatypes <- c("Index", "Mean length", "Mean age", "Conditional age-at-length", "Size frequency")
   subplots <- quants
-  ylabel <- datatypes[which(c("cpue", "len", "age", "con") %in% subplots)]
-  if (verbose) cat("Running Runs Test Diagnosics for", datatypes[which(c("cpue", "len", "age", "con") %in% subplots)], "\n")
+  ylabel <- datatypes[which(c("cpue", "len", "age", "con", "size") %in% subplots)]
+  if (verbose) cat("Running Runs Test Diagnosics for", datatypes[which(c("cpue", "len", "age", "con", "size") %in% subplots)], "\n")
   if (subplots == "cpue") {
     cpue <- ss3rep[["cpue"]]
     cpue[["residuals"]] <- ifelse(is.na(cpue[["Obs"]]) | is.na(cpue[["Like"]]), NA, log(cpue[["Obs"]]) - log(cpue[["Exp"]]))
@@ -452,7 +452,7 @@ SSrunstest <- function(ss3rep,
     Res <- cpue
   }
 
-  if (subplots == "len" | subplots == "age") {
+  if (subplots == "len" | subplots == "age" | subplots == "size") {
     comps <- SScompsTA1.8(ss3rep, fleet = NULL, type = subplots, plotit = FALSE)[["runs_dat"]]
     comps[["residuals"]] <- ifelse(is.na(comps[["Obs"]]), NA, log(comps[["Obs"]]) - log(comps[["Exp"]]))
     if (is.null(comps[["Fleet_name"]])) { # Deal with Version control
@@ -521,7 +521,7 @@ SSrunstest <- function(ss3rep,
 
   runstable <- data.frame(Index = indices, runs.p = as.matrix(runs)[, 1], Test = ifelse(is.na(as.matrix(runs)[, 1]), "Excluded", ifelse(as.matrix(runs)[, 1] < 0.05, "Failed", "Passed")), sigma3.lo = as.matrix(runs)[, 2], sigma3.hi = as.matrix(runs)[, 3], type = subplots)
   colnames(runstable) <- c("Index", "runs.p", "test", "sigma3.lo", "sigma3.hi", "type")
-  if (verbose) cat(paste0("Residual Runs Test stats by ", datatypes[which(c("cpue", "len", "age", "con") %in% subplots)], ":", "\n"))
+  if (verbose) cat(paste0("Residual Runs Test stats by ", datatypes[which(c("cpue", "len", "age", "con", "size") %in% subplots)], ":", "\n"))
   return(runstable)
 } # end of SSplotRuns()
 #-----------------------------------------------------------------------------------------

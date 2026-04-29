@@ -131,7 +131,11 @@ SScompsTA1.8 <- function(ss3rep, type = c("len", "age", "size", "con"), fleet = 
   }
 
   if (gender.flag) pldat <- cbind(pldat, pick.gender = 0)
-  if (method.flag) pldat <- cbind(pldat, method = 0)
+  if (method.flag) {
+    pldat <- cbind(pldat, method = 0)
+    # vector to store units (which are strings and don't fit in pldat matrix)
+    plunits <- rep(NA, nrow(pldat))
+  }
 
   # Find the weighting factor for this combination of factors
   if (type[1] == "con") {

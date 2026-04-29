@@ -7,7 +7,7 @@
 SSrunstest(
   ss3rep,
   mixing = "less",
-  quants = c("cpue", "len", "age", "con")[1],
+  quants = c("cpue", "len", "age", "con", "size")[1],
   indexselect = NULL,
   verbose = TRUE
 )
